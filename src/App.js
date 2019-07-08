@@ -7,8 +7,6 @@ class App extends Component {
     this.updateSearch = this.updateSearch.bind(this);
     this.state = {
       items: [],
-      next: 10,
-      start: 0,
       search: '',
     }
   }
@@ -17,8 +15,8 @@ class App extends Component {
     fetch('https://hacker-news.firebaseio.com/v0/beststories.json')
       .then(response => response.json())
       .then((data) => {
-        data.map((newsId) => {
-          fetch(`https://hacker-news.firebaseio.com/v0/item/${newsId}.json`)
+        data.map((itemId) => {
+          fetch(`https://hacker-news.firebaseio.com/v0/item/${itemId}.json`)
             .then(response => response.json())
             .then((itemDetail) => {
               this.setState((currentState) => {
@@ -31,7 +29,6 @@ class App extends Component {
   }
 
   updateSearch(event) {
-    console.log(event);
     this.setState({
       search: event.target.value.toLowerCase()
     });
